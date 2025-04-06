@@ -3,122 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Flower</title>
+    <title>welcome </title>
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('4315185.jpg') no-repeat center center fixed;
+            background-size: cover;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            overflow: hidden;
+            color: white;
         }
         
-        .flower {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            transform-style: preserve-3d;
-            animation: rotate 20s infinite linear;
+        .profile-card {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease;
         }
         
-        .petal {
-            position: absolute;
-            width: 100px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .avatar-container {
+            width: 150px;
             height: 150px;
-            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-            border-radius: 50px 50px 0 0;
-            transform-origin: bottom center;
-            box-shadow: 0 0 10px rgba(255, 154, 158, 0.6);
-            opacity: 0.9;
-            transition: transform 0.3s;
+            margin: 0 auto 20px;
+            position: relative;
         }
         
-        .center {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #f6d365 0%, #fda085 100%);
+        .avatar {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            top: 70px;
-            left: 70px;
-            z-index: 10;
-            box-shadow: 0 0 20px rgba(246, 211, 101, 0.8);
+            object-fit: cover;
+            border: 5px solid #ff69b4;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6),
+                        0 0 40px rgba(255, 105, 180, 0.3);
+            transition: transform 0.5s;
         }
         
-        .stem {
-            position: absolute;
-            width: 10px;
-            height: 300px;
-            background: linear-gradient(to bottom, #a1c4fd 0%, #c2e9fb 100%);
-            top: 200px;
-            left: 95px;
-            transform: rotateZ(180deg);
-            z-index: -1;
-            border-radius: 5px;
+        .avatar:hover {
+            transform: scale(1.05);
         }
         
-        .leaf {
-            position: absolute;
-            width: 80px;
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ff69b4;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+        
+        .quote {
+            font-style: italic;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #ff69b4;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 105, 180, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icon {
+            width: 40px;
             height: 40px;
-            background: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 100%);
-            border-radius: 40px 0 40px 0;
-            top: 300px;
-            left: 60px;
-            transform: rotateZ(-30deg);
-            z-index: -1;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
         }
         
-        @keyframes rotate {
-            0% { transform: rotateY(0) rotateX(10deg); }
-            100% { transform: rotateY(360deg) rotateX(10deg); }
+        .social-icon:hover {
+            background: #ff69b4;
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
-    <div class="flower" id="flower">
-        <div class="center"></div>
-        <div class="stem"></div>
-        <div class="leaf"></div>
-    </div>
+    <div class="profile-card">
+        <div class="avatar-container">
+            <img src="Screenshot 2024-12-19 183101.png" alt="Avatar" class="avatar">
+        </div>
+        
+        <h1>Luckkystop</h1>
 
-    <script>
-        const flower = document.getElementById('flower');
-        const petalCount = 12;
         
-        // Tạo cánh hoa
-        for (let i = 0; i < petalCount; i++) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            
-            // Tính toán vị trí cánh hoa
-            const angle = (i * 360 / petalCount);
-            petal.style.transform = `rotateY(${angle}deg) rotateX(30deg) translateZ(50px)`;
-            
-            // Thêm hiệu ứng màu gradient ngẫu nhiên
-            const hue1 = Math.floor(Math.random() * 30 + 330) % 360;
-            const hue2 = Math.floor(Math.random() * 30 + 330) % 360;
-            petal.style.background = `linear-gradient(45deg, hsl(${hue1}, 100%, 75%) 0%, hsl(${hue2}, 100%, 85%) 100%)`;
-            
-            flower.appendChild(petal);
-        }
+        <div class="quote">
+            "𝕀𝕗 𝕪𝕠𝕦 𝕤𝕒𝕪 𝕪𝕠𝕦 𝕝𝕠𝕧𝕖 𝕞𝕖, 𝕨𝕠𝕦𝕝𝕕 𝕪𝕠𝕦 𝕒𝕔𝕔𝕖𝕡𝕥 𝕞𝕖?"
+        </div>
         
-        // Hiệu ứng di chuột
-        flower.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            flower.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-        
-        // Reset khi không di chuột
-        flower.addEventListener('mouseleave', () => {
-            flower.style.animation = 'rotate 20s infinite linear';
-            setTimeout(() => {
-                flower.style.animation = '';
-            }, 100);
-        });
-    </script>
+        <div class="social-icons">
+            <a href="https://www.reddit.com/user/luckkystopdz/" class="social-icon">👽</a>
+            <a href="https://www.tiktok.com/@luckkystop" class="social-icon">🎵</a>
+            <a href="https://www.youtube.com/@LuckkystopBex" class="social-icon">▶️</a>
+        </div>
+    </div>
 </body>
-</html>
+</html> 
