@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Flower</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
+        }
+        
+        .flower {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            border-radius: 50px 50px 0 0;
+            transform-origin: bottom center;
+            box-shadow: 0 0 10px rgba(255, 154, 158, 0.6);
+            opacity: 0.9;
+            transition: transform 0.3s;
+        }
+        
+        .center {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #f6d365 0%, #fda085 100%);
+            border-radius: 50%;
+            top: 70px;
+            left: 70px;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(246, 211, 101, 0.8);
+        }
+        
+        .stem {
+            position: absolute;
+            width: 10px;
+            height: 300px;
+            background: linear-gradient(to bottom, #a1c4fd 0%, #c2e9fb 100%);
+            top: 200px;
+            left: 95px;
+            transform: rotateZ(180deg);
+            z-index: -1;
+            border-radius: 5px;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 100%);
+            border-radius: 40px 0 40px 0;
+            top: 300px;
+            left: 60px;
+            transform: rotateZ(-30deg);
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateY(0) rotateX(10deg); }
+            100% { transform: rotateY(360deg) rotateX(10deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="flower" id="flower">
+        <div class="center"></div>
+        <div class="stem"></div>
+        <div class="leaf"></div>
+    </div>
+
+    <script>
+        const flower = document.getElementById('flower');
+        const petalCount = 12;
+        
+        // Tạo cánh hoa
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            // Tính toán vị trí cánh hoa
+            const angle = (i * 360 / petalCount);
+            petal.style.transform = `rotateY(${angle}deg) rotateX(30deg) translateZ(50px)`;
+            
+            // Thêm hiệu ứng màu gradient ngẫu nhiên
+            const hue1 = Math.floor(Math.random() * 30 + 330) % 360;
+            const hue2 = Math.floor(Math.random() * 30 + 330) % 360;
+            petal.style.background = `linear-gradient(45deg, hsl(${hue1}, 100%, 75%) 0%, hsl(${hue2}, 100%, 85%) 100%)`;
+            
+            flower.appendChild(petal);
+        }
+        
+        // Hiệu ứng di chuột
+        flower.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            flower.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+        
+        // Reset khi không di chuột
+        flower.addEventListener('mouseleave', () => {
+            flower.style.animation = 'rotate 20s infinite linear';
+            setTimeout(() => {
+                flower.style.animation = '';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
